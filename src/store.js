@@ -9,12 +9,12 @@ import storage from 'redux-persist/lib/storage';
 
 import rootReducer from './reducers';
 
-const persistConfig = {
-  key: 'root',
-  storage: storage
-}
-
-const persistedReducers = persistCombineReducers(persistConfig, rootReducer);
-
-const store = createStore(persistedReducers);
-const persistor = persistStore(store);
+// const persistConfig = {
+//   key: 'root',
+//   storage: storage
+// }
+//
+// const persistedReducers = persistCombineReducers(persistConfig, rootReducer);
+//
+// const store = createStore(persistedReducers);
+// const persistor = persistStore(store);

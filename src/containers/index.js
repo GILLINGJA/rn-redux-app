@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 
 import NoteList from './note-list.js';
 import NoteDetails from './note-details.js';
@@ -10,8 +10,18 @@ export default class RootComponent extends Component {
   }
 
   render() {
+    const NavigationContainer = createStackNavigator(
+      {
+        ListScreen: { screen: NoteList },
+        DetailScreen: { screen: NoteDetails }
+      },
+      {
+        initalRouteName: 'ListScreen'
+      }
+    );
+
     return (
-      <View></View>
+      <NavigationContainer />
     );
   }
 }

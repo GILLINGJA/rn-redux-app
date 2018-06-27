@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-import { Stylesheet, View, Text } from 'react-native';
-import colourTheme from '../theme.js';
+import { StyleSheet, View, Text } from 'react-native';
+import theme from '../theme.js';
 
 const LoadingView (props) => {
   render() {
-    const styles = Stylesheet.create({
+    const styles = StyleSheet.create({
       container: {
-        backgroundColor: colourTheme.primaryColourLight,
+        backgroundColor: theme.primaryColourLight,
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        color: {colourTheme.textColourDark}
+        justifyContent: 'center'
+      },
+
+      loadingText: {
+        color: theme.textColourDark,
+        fontSize: 32
       }
     });
 
     return (
       <View style={styles.container}>
-        <Text>Loading...</Text>
+        <Text style={styles.loadingText}>Loading...</Text>
       </View>
     );
   }
