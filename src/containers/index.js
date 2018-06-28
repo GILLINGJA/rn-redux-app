@@ -30,6 +30,15 @@ export default class RootComponent extends Component {
         navigationOptions: {
           headerMode: 'screen',
           headerStyle: utilityStyles.utilityBar,
+          headerLeft: (
+            <TouchableHighlight
+              onPress={this._onUtilBtnPress}
+              underlayColor='#fff'>
+              <View style={utilityStyles.utilButton}>
+                <FontAwesome style={utilityStyles.utilIcon}>{Icons.bars}</FontAwesome>
+              </View>
+            </TouchableHighlight>
+          ),
           headerRight: (
             <View style={utilityStyles.utilButtonGroup}>
               <TouchableHighlight
