@@ -8,24 +8,33 @@ import {
   TouchableHighlight
 } from 'react-native';
 import ActionButton from 'react-native-action-button';
+import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import theme from '../theme.js';
 import utilityStyles from '../constants.js';
 
-const styles = StyleSheet.create({
-  fullContainer: {
-    height: '100%'
-  },
-
-  listContainer: {
-    flex: 1,
-    alignSelf: 'stretch'
-  }
-});
+import UtilityButton from '../components/utility-button.js';
+import NoteListItem from '../components/note-list-item.js';
 
 export default class NoteList extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    this.props.navigation.setParams({
+      pressMenu: () => {  },
+      onUtilBtnPress: () => { alert("Utility button pressed") }
+    });
+  }
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <UtilityButton onPress={navigation.getParam('pressMenu')}>{Icons.bars}</UtilityButton>
+      ),
+      headerRight: (
+        <View style={theme.styles.utilButtonGroup}>
+          <UtilityButton onPress={navigation.getParam('onUtilBtnPress')}>{Icons.shareAlt}</UtilityButton>
+          <UtilityButton onPress={navigation.getParam('onUtilBtnPress')}>{Icons.ellipsisV}</UtilityButton>
+        </View>
+      )};
   }
 
   render() {
@@ -37,9 +46,9 @@ export default class NoteList extends Component {
     };
 
     return (
-      <View style={styles.fullContainer}>
-        <View style={styles.listContainer}>
-          <Text>Note List</Text>
+      <View style={theme.styles.fullContainer}>
+        <View style={theme.styles.listContainer}>
+          <NoteListItem />
         </View>
         {(Platform.OS === 'android') && <ActionButton {...params.actionButton} />}
       </View>

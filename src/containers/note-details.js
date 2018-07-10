@@ -12,10 +12,11 @@ import FontAwesome, { Icons } from 'react-native-fontawesome';
 import theme from '../theme.js';
 import utilityStyles from '../constants.js';
 
+import UtilityButton from '../components/utility-button.js';
+
 const styles = StyleSheet.create({
   fullContainer: {
-    height: '100%',
-    justifyContent: 'space-around'
+    height: '100%'
   },
 
   editorContainer: {
@@ -105,44 +106,20 @@ export default class NoteDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
-        <TouchableHighlight
-          onPress={navigation.getParam('pressBack')}
-          underlayColor='#fff'>
-          <View style={utilityStyles.utilButton}>
-            <FontAwesome style={utilityStyles.utilIcon}>{Icons.angleLeft}</FontAwesome>
-          </View>
-        </TouchableHighlight>
+        <UtilityButton onPress={navigation.getParam('pressBack')}>{Icons.angleLeft}</UtilityButton>
       ),
       headerRight: (
-        <View style={utilityStyles.utilButtonGroup}>
-          <TouchableHighlight
-            onPress={navigation.getParam('onUtilBtnPress')}
-            underlayColor='#fff'>
-            <View style={utilityStyles.utilButton}>
-              <FontAwesome style={utilityStyles.utilIcon}>{Icons.pencil}</FontAwesome>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={navigation.getParam('onUtilBtnPress')}
-            underlayColor='#fff'>
-            <View style={utilityStyles.utilButton}>
-              <FontAwesome style={utilityStyles.utilIcon}>{Icons.paperclip}</FontAwesome>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={navigation.getParam('onUtilBtnPress')}
-            underlayColor='#fff'>
-            <View style={utilityStyles.utilButton}>
-              <FontAwesome style={utilityStyles.utilIcon}>{Icons.ellipsisV}</FontAwesome>
-            </View>
-          </TouchableHighlight>
+        <View style={theme.styles.utilButtonGroup}>
+          <UtilityButton onPress={navigation.getParam('onUtilBtnPress')}>{Icons.pencil}</UtilityButton>
+          <UtilityButton onPress={navigation.getParam('onUtilBtnPress')}>{Icons.paperclip}</UtilityButton>
+          <UtilityButton onPress={navigation.getParam('onUtilBtnPress')}>{Icons.ellipsisV}</UtilityButton>
         </View>
       )};
   }
 
   render() {
     return (
-      <View style={styles.fullContainer}>
+      <View style={theme.styles.fullContainer}>
         {/* EDITOR
           > Note Header
             - Title Field
@@ -153,28 +130,28 @@ export default class NoteDetails extends Component {
               * Information
           > Note Content
             - Text Field */}
-        <ScrollView contentContainerStyle={styles.editorContainer}>
-          <View style={styles.header}>
-            <View style={styles.titleContainer}>
-              <TextInput style={styles.title}
+        <ScrollView contentContainerStyle={theme.styles.editorContainer}>
+          <View style={theme.styles.header}>
+            <View style={theme.styles.titleContainer}>
+              <TextInput style={theme.styles.title}
                 placeholder='Title'
                 underlineColorAndroid={theme.primaryColour} />
             </View>
-            <View style={styles.metaContainer}>
-              <View style={styles.metaLeft}>
-                <FontAwesome style={styles.metaBtn}>{Icons.book}</FontAwesome>
-                <Text style={styles.metaText}>Notebook</Text>
+            <View style={theme.styles.metaContainer}>
+              <View style={theme.styles.metaLeft}>
+                <FontAwesome style={theme.styles.metaBtn}>{Icons.book}</FontAwesome>
+                <Text style={theme.styles.metaText}>Notebook</Text>
               </View>
-              <View style={styles.metaRight}>
-                <FontAwesome style={styles.metaBtn}>{Icons.bell}</FontAwesome>
-                <FontAwesome style={styles.metaBtn}>{Icons.tag}</FontAwesome>
-                <FontAwesome style={styles.metaBtn}>{Icons.infoCircle}</FontAwesome>
+              <View style={theme.styles.metaRight}>
+                <FontAwesome style={theme.styles.metaBtn}>{Icons.bell}</FontAwesome>
+                <FontAwesome style={theme.styles.metaBtn}>{Icons.tag}</FontAwesome>
+                <FontAwesome style={theme.styles.metaBtn}>{Icons.infoCircle}</FontAwesome>
               </View>
             </View>
           </View>
 
-          <View style={styles.editorContent}>
-            <TextInput style={styles.contentText}
+          <View style={theme.styles.editorContent}>
+            <TextInput style={theme.styles.contentText}
             placeholder="Take some notes"
             multiline={true}
             underlineColorAndroid='rgba(0,0,0,0)' />
