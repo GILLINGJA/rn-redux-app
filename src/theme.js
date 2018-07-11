@@ -37,6 +37,19 @@ export default {
       fontSize: 24
     },
 
+    /* Loading Styles */
+    loadingContainer: {
+      backgroundColor: primaryColourLight,
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+
+    loadingText: {
+      color: textColourDark,
+      fontSize: 32
+    },
+
     /* NoteList Styles */
     fullContainer: {
       height: '100%'
@@ -45,6 +58,12 @@ export default {
     listContainer: {
       flex: 1,
       alignSelf: 'stretch'
+    },
+
+    list: {
+      flex: 1,
+      borderWidth: 2,
+      borderColor: primaryColourDark
     },
 
     /* NoteDetails Styles */
@@ -122,10 +141,11 @@ export default {
     /* Note List Item Styles */
     itemContainer: {
       height: 60,
+      flex: 1,
       paddingLeft: 6,
       paddingRight: 6,
-      alignSelf: 'stretch',
       justifyContent: 'space-between',
+      backgroundColor: '#f00',
       borderBottomWidth: 0.5,
       borderColor: primaryColourLight
     },
