@@ -121,7 +121,7 @@ export default {
 
     /* Note List Item Styles */
     itemContainer: {
-      height: 60,
+      height: 80,
       paddingLeft: 6,
       paddingRight: 6,
       alignSelf: 'stretch',
@@ -135,7 +135,7 @@ export default {
     },
 
     itemTitle: {
-      fontSize: 18,
+      fontSize: 20,
       fontWeight: 'bold',
       color: textColourDark
     },

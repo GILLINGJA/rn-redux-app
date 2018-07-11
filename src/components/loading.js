@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const LoadingView (props) => {
+const LoadingView = (props) => {
   render() {
     return (
       <View style={styles.container}>
