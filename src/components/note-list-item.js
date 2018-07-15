@@ -8,9 +8,11 @@ import {
 import theme from '../theme.js';
 
 const NoteListItem = (props) => {
+  const onPress = props.onPress ? props.onPress : () => { };
+
   return (
     <TouchableHighlight
-      onPress={() => {}}
+      onPress={onPress}
       underlayColor={theme.primaryColourLight}>
       <View style={theme.styles.itemContainer}>
         <View style={theme.styles.itemTitleContainer}>
@@ -21,7 +23,7 @@ const NoteListItem = (props) => {
             <Text style={theme.styles.itemInfo}>{props.item.content}</Text>
           </View>
           <View>
-            <Text style={theme.styles.itemInfo}>{props.item.date}</Text>
+            <Text style={theme.styles.itemInfo}>Last Updated: {props.item.date}</Text>
           </View>
         </View>
       </View>

@@ -11,7 +11,7 @@ import ActionButton from 'react-native-action-button';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import theme from '../theme.js';
-import utilityStyles from '../constants.js';
+import constants from '../constants.js';
 
 import UtilityButton from '../components/utility-button.js';
 import NoteListItem from '../components/note-list-item.js';
@@ -21,127 +21,43 @@ export default class NoteList extends Component {
     super(props);
 
     this.state = {
-      notes: [
-        {
-          id: '0000',
-          title: 'Note1',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0001',
-          title: 'Note2',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0002',
-          title: 'Note3',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0003',
-          title: 'Note4',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0004',
-          title: 'Note1',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0005',
-          title: 'Note2',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0006',
-          title: 'Note3',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0007',
-          title: 'Note4',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },{
-          id: '0008',
-          title: 'Note1',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0009',
-          title: 'Note2',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0010',
-          title: 'Note3',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0011',
-          title: 'Note4',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },{
-          id: '0012',
-          title: 'Note1',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0013',
-          title: 'Note2',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0014',
-          title: 'Note3',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        },
-        {
-          id: '0015',
-          title: 'Note4',
-          content: 'Testing 1 2 3 . . . ',
-          date: '01/02/2003'
-        }
-      ]
+      notes: constants.notes
     }
   }
 
   componentDidMount() {
     this.props.navigation.setParams({
-      pressMenu: () => {  },
-      onUtilBtnPress: () => { alert("Utility button pressed") }
+      onMenuBtnPress: () => { alert("Hamburger pressed") },
+      onShareBtnPress: () => { alert("Share button pressed") },
+      onMoreBtnPress: () => { alert("More button pressed") }
     });
   }
 
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
-        <UtilityButton onPress={navigation.getParam('pressMenu')}>{Icons.bars}</UtilityButton>
+        <UtilityButton onPress={navigation.getParam('onMenuBtnPress')}>{Icons.bars}</UtilityButton>
       ),
       headerRight: (
         <View style={theme.styles.utilButtonGroup}>
-          <UtilityButton onPress={navigation.getParam('onUtilBtnPress')}>{Icons.shareAlt}</UtilityButton>
-          <UtilityButton onPress={navigation.getParam('onUtilBtnPress')}>{Icons.ellipsisV}</UtilityButton>
+          <UtilityButton onPress={navigation.getParam('onShareBtnPress')}>{Icons.shareAlt}</UtilityButton>
+          <UtilityButton onPress={navigation.getParam('onMoreBtnPress')}>{Icons.ellipsisV}</UtilityButton>
         </View>
       )};
   }
 
+  onAddNote(navigate) {
+    navigate('DetailScreen', { noteID: '4321' })
+  }
+
+  onViewNote(item) {
+    const { navigate } = this.props.navigation;
+
+    navigate('DetailScreen', { note: item });
+  }
+
   renderItem(item) {
-    return <NoteListItem item={item} />;
+    return <NoteListItem onPress={() => this.onViewNote(item)} item={item} />;
   }
 
   render() {
@@ -153,7 +69,7 @@ export default class NoteList extends Component {
       },
       actionButton: {
         buttonColor: theme.primaryColour,
-        onPress: () => this.props.navigation.navigate('DetailScreen')
+        onPress: () => this.onAddNote(this.props.navigation.navigate)
       }
     };
 
