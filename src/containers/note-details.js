@@ -10,90 +10,21 @@ import {
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import theme from '../theme.js';
-import utilityStyles from '../constants.js';
 
 import UtilityButton from '../components/utility-button.js';
-
-const styles = StyleSheet.create({
-  fullContainer: {
-    height: '100%'
-  },
-
-  editorContainer: {
-    flex: 1,
-    padding: 2,
-    alignSelf: 'stretch'
-  },
-
-  header: {
-    // borderWidth: 2,
-    // borderColor: '#f00'
-  },
-
-  titleContainer: {
-    // borderWidth: 2,
-    // borderColor: '#6b0'
-  },
-
-  title: {
-    color: '#966fd6',
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
-
-  metaContainer: {
-    // borderWidth: 2,
-    // borderColor: '#00f',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-
-  metaLeft: {
-    // borderWidth: 2,
-    // borderColor: '#f0f',
-    flexDirection: 'row',
-    marginHorizontal: 10
-  },
-
-  metaRight: {
-    // borderWidth: 2,
-    // borderColor: '#0f0',
-    width: 120,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 10
-  },
-
-  metaBtn: {
-    height: 30,
-    fontSize: 16,
-    color: '#966fd6'
-  },
-
-  metaText: {
-    height: 30,
-    fontSize: 14,
-    marginHorizontal: 10,
-    color: '#966fd6'
-  },
-
-  editorContent: {
-    flex: 1,
-    margin: 2,
-    alignSelf: 'stretch'
-  },
-
-  contentText: {
-    flex: 1,
-    alignSelf: 'stretch',
-    textAlignVertical: 'top',
-    color: '#666'
-  }
-});
 
 export default class NoteDetails extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      note: props.navigation.getParam('note', {
+        id: 'noluck',
+        title: 'FAIL',
+        content: 'Failed to load note through navigation params.',
+        date: 'Never'
+      }) || this.newNote(props.navigation.getParam('noteID', 'NO-ID'))
+    }
   }
 
   componentDidMount() {
@@ -101,6 +32,23 @@ export default class NoteDetails extends Component {
       pressBack: () => { this.props.navigation.goBack() },
       onUtilBtnPress: () => { alert("Utility button pressed") }
   });
+  }
+
+  newNote(id) {
+    this.setState({
+      note: {
+        id: id,
+        title: 'Hello',
+        content: 'World',
+        date: '14/07/2018'
+      }
+    });
+  }
+
+  onChangeField(text, field) {
+    const note = Object.assign({}, this.state.note)
+    note[field] = text;
+    this.setState({ note });
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -135,16 +83,17 @@ export default class NoteDetails extends Component {
             <View style={theme.styles.titleContainer}>
               <TextInput style={theme.styles.title}
                 placeholder='Title'
-                underlineColorAndroid={theme.primaryColour} />
+                underlineColorAndroid={theme.primaryColour}
+                onChangeText={text => this.onChangeField(text, 'title')}
+                value={this.state.note.title} />
             </View>
             <View style={theme.styles.metaContainer}>
               <View style={theme.styles.metaLeft}>
-                <FontAwesome style={theme.styles.metaBtn}>{Icons.book}</FontAwesome>
+                <FontAwesome style={theme.styles.metaBtnL}>{Icons.book}</FontAwesome>
                 <Text style={theme.styles.metaText}>Notebook</Text>
               </View>
               <View style={theme.styles.metaRight}>
                 <FontAwesome style={theme.styles.metaBtn}>{Icons.bell}</FontAwesome>
-                <FontAwesome style={theme.styles.metaBtn}>{Icons.tag}</FontAwesome>
                 <FontAwesome style={theme.styles.metaBtn}>{Icons.infoCircle}</FontAwesome>
               </View>
             </View>
@@ -154,7 +103,9 @@ export default class NoteDetails extends Component {
             <TextInput style={theme.styles.contentText}
             placeholder="Take some notes"
             multiline={true}
-            underlineColorAndroid='rgba(0,0,0,0)' />
+            underlineColorAndroid='rgba(0,0,0,0)'
+            onChangeText={text => this.onChangeField(text, 'content')}
+            value={this.state.note.content} />
           </View>
       </ScrollView>
       </View>

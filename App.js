@@ -4,6 +4,7 @@ import { PersistGate } from 'redux-persist';
 
 // import { persistor, store } from './src/store.js';
 import RootComponent from './src/containers';
+import {store, persistor } from './src/store.js';
 
 export default class App extends Component {
   render() {

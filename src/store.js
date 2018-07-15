@@ -7,8 +7,8 @@ import storage from 'redux-persist/lib/storage';
 // **REDUNDANT** - persistCombineReducers automatically sets the merge method to Level 2
 // ## import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'; ##
 
-import rootReducer from './reducers';
-
+// import rootReducer from './reducers';
+//
 // const persistConfig = {
 //   key: 'root',
 //   storage: storage

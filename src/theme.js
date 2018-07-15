@@ -14,7 +14,9 @@ export default {
   textColourLight,
   textColourDark,
   styles: {
-    /* Utility Bar Styles */
+    /*
+     * Utility Bar Styles
+     */
     utilityBar: {
       height: 60,
       backgroundColor: primaryColour
@@ -50,7 +52,9 @@ export default {
       fontSize: 32
     },
 
-    /* NoteList Styles */
+    /*
+     * NoteList Styles
+     */
     fullContainer: {
       height: '100%'
     },
@@ -66,7 +70,9 @@ export default {
       borderColor: primaryColourDark
     },
 
-    /* NoteDetails Styles */
+    /*
+     * NoteDetails Styles
+     */
     editorContainer: {
       flex: 1,
       padding: 2,
@@ -84,8 +90,8 @@ export default {
     },
 
     title: {
-      color: '#966fd6',
-      fontSize: 16,
+      color: textColourDark,
+      fontSize: 20,
       fontWeight: 'bold'
     },
 
@@ -106,23 +112,29 @@ export default {
     metaRight: {
       // borderWidth: 2,
       // borderColor: '#0f0',
-      width: 120,
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      alignItems: 'flex-end',
       marginHorizontal: 10
     },
 
     metaBtn: {
       height: 30,
-      fontSize: 16,
+      marginHorizontal: 10,
+      fontSize: 20,
       color: '#966fd6'
+    },
+
+    metaBtnL: {
+      height: 30,
+      fontSize: 20,
+      color: primaryColour
     },
 
     metaText: {
       height: 30,
-      fontSize: 14,
+      fontSize: 18,
       marginHorizontal: 10,
-      color: '#966fd6'
+      color: primaryColour
     },
 
     editorContent: {
@@ -135,13 +147,15 @@ export default {
       flex: 1,
       alignSelf: 'stretch',
       textAlignVertical: 'top',
-      color: '#666'
+      fontSize: 16,
+      color: textColourDark
     },
 
-    /* Note List Item Styles */
+    /*
+     * Note List Item Styles
+     */
     itemContainer: {
-      height: 60,
-      flex: 1,
+      height: 80,
       paddingLeft: 6,
       paddingRight: 6,
       justifyContent: 'space-between',
@@ -155,7 +169,7 @@ export default {
     },
 
     itemTitle: {
-      fontSize: 18,
+      fontSize: 20,
       fontWeight: 'bold',
       color: textColourDark
     },

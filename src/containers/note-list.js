@@ -11,7 +11,11 @@ import ActionButton from 'react-native-action-button';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import theme from '../theme.js';
+<<<<<<< HEAD
 import testData from '../constants.js';
+=======
+import constants from '../constants.js';
+>>>>>>> tmp
 
 import LoadingView from '../components/loading.js';
 import UtilityButton from '../components/utility-button.js';
@@ -21,44 +25,60 @@ export default class NoteList extends Component {
   constructor(props) {
     super(props);
 
+<<<<<<< HEAD
     this.state = { notes: testData.notes };
+=======
+    this.state = {
+      notes: constants.notes
+    }
+>>>>>>> tmp
   }
 
   componentDidMount() {
     this.props.navigation.setParams({
-      pressMenu: () => {  },
-      onUtilBtnPress: () => { alert("Utility button pressed") }
+      onMenuBtnPress: () => { alert("Hamburger pressed") },
+      onShareBtnPress: () => { alert("Share button pressed") },
+      onMoreBtnPress: () => { alert("More button pressed") }
     });
   }
 
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
-        <UtilityButton onPress={navigation.getParam('pressMenu')}>{Icons.bars}</UtilityButton>
+        <UtilityButton onPress={navigation.getParam('onMenuBtnPress')}>{Icons.bars}</UtilityButton>
       ),
       headerRight: (
         <View style={theme.styles.utilButtonGroup}>
-          <UtilityButton onPress={navigation.getParam('onUtilBtnPress')}>{Icons.shareAlt}</UtilityButton>
-          <UtilityButton onPress={navigation.getParam('onUtilBtnPress')}>{Icons.ellipsisV}</UtilityButton>
+          <UtilityButton onPress={navigation.getParam('onShareBtnPress')}>{Icons.shareAlt}</UtilityButton>
+          <UtilityButton onPress={navigation.getParam('onMoreBtnPress')}>{Icons.ellipsisV}</UtilityButton>
         </View>
       )};
   }
 
+  onAddNote(navigate) {
+    navigate('DetailScreen', { noteID: '4321' })
+  }
+
+  onViewNote(item) {
+    const { navigate } = this.props.navigation;
+
+    navigate('DetailScreen', { note: item });
+  }
+
   renderItem(item) {
-    return ( <NoteListItem item={item} /> );
+    return <NoteListItem onPress={() => this.onViewNote(item)} item={item} />;
   }
 
   render() {
     const params = {
       noteList: {
-        style: theme.styles.list,
         data: this.state.notes,
         keyExtractor: (item) => item.id,
-        renderItem: ({ item }) => { this.renderItem(item) }
+        renderItem: ({item}) => this.renderItem(item)
       },
       actionButton: {
         buttonColor: theme.primaryColour,
-        onPress: () => this.props.navigation.navigate('DetailScreen')
+        onPress: () => this.onAddNote(this.props.navigation.navigate)
       }
     };
 
@@ -69,10 +89,7 @@ export default class NoteList extends Component {
     return (
       <View style={theme.styles.fullContainer}>
         <View style={theme.styles.listContainer}>
-          {/* <FlatList {...params.noteList} /> */}
-          {/* <Text>{'There are ' + params.noteList.data.length + ' notes in this list.\n' +
-                  'The ID of the first note is ' + params.noteList.data[0].id}</Text> */}
-          <NoteListItem  />
+          <FlatList {...params.noteList} />
         </View>
         {(Platform.OS === 'android') && <ActionButton {...params.actionButton} />}
       </View>

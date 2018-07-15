@@ -7,21 +7,23 @@ import {
 } from 'react-native';
 import theme from '../theme.js';
 
-const NoteListItem = () => {
+const NoteListItem = (props) => {
+  const onPress = props.onPress ? props.onPress : () => { };
+
   return (
     <TouchableHighlight
-      onPress={() => {}}
+      onPress={onPress}
       underlayColor={theme.primaryColourLight}>
       <View style={theme.styles.itemContainer}>
         <View style={theme.styles.itemTitleContainer}>
-          <Text style={theme.styles.itemTitle}>Title</Text>
+          <Text style={theme.styles.itemTitle}>{props.item.title}</Text>
         </View>
         <View style={theme.styles.itemInfoContainer}>
           <View>
-            <Text style={theme.styles.itemInfo}>Content content content</Text>
+            <Text style={theme.styles.itemInfo}>{props.item.content}</Text>
           </View>
           <View>
-            <Text style={theme.styles.itemInfo}>01/02/2003</Text>
+            <Text style={theme.styles.itemInfo}>Last Updated: {props.item.date}</Text>
           </View>
         </View>
       </View>
