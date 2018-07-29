@@ -8,14 +8,12 @@ const notesReducer = (state = initialState, action) => {
 
   switch(action.type) {
     case NOTE_SAVE:
-      console.log('Saving note...');
       if('id' in payload && state.findIndex(n => n.id === payload.id) >= 0) {
         return state.map(n => n.id === payload.id ? payload : n);
       } else {
-        return [ ...state, payload ];
+        return [ payload, ...state ];
       }
     case NOTE_DELETE:
-      console.log('Deleting note...');
       if('id' in payload) {
         return state.filter(n => n.id !== payload.id);
       }

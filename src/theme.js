@@ -85,7 +85,8 @@ export default {
     },
 
     itemTitleContainer: {
-      paddingTop: 4
+      paddingTop: 4,
+      paddingRight: 40
     },
 
     itemTitle: {
@@ -96,11 +97,24 @@ export default {
 
     itemInfoContainer: {
       paddingBottom: 4,
-      flexDirection: 'row',
-      justifyContent: 'space-between'
+      flexDirection: 'row'
     },
 
-    itemInfo: {
+    itemContentWrap: {
+      flex: 2,
+      paddingTop: 10
+    },
+
+    itemDateWrap: {
+      flex: 1,
+      marginLeft: 20
+    },
+
+    itemContent: {
+      fontSize: 14
+    },
+
+    itemDate: {
       fontSize: 14
     },
 

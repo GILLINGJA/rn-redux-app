@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 import * as actions from '../actions.js';
 
 import theme from '../theme.js';
-import { getCustomDateFormat } from '../constants.js';
 
 import UtilityButton from '../components/utility-button.js';
 
@@ -35,10 +34,7 @@ class NoteDetails extends Component {
   }
 
   newNote(id) {
-    let today = getCustomDateFormat();
-    // console.log('id: ', id);
-    console.log('Date created: ', today);
-    // console.log('New note');
+    let today = new Date();
     return {
           id: id,
           title: '',
@@ -53,8 +49,6 @@ class NoteDetails extends Component {
     note[field] = text;
     note.dateUpdated
     this.setState({ note });
-
-    console.log('Note object: ', note);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -74,10 +68,12 @@ class NoteDetails extends Component {
   componentWillUnmount() {
     const note = Object.assign({}, this.state.note);
 
-    if(note.title.length === 0 || note.content.length === 0) {
+    if(note.content.length === 0) {
       alert("Cannot save empty note");
+    } else if(note.title.length === 0) {
+      note.title = 'Untitled Note';
+      this.props.saveNote(note);
     } else {
-      console.log('Attempt to save following note: ', note);
       this.props.saveNote(this.state.note);
     }
   }

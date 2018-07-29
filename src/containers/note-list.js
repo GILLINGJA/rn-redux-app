@@ -4,7 +4,8 @@ import {
   StyleSheet,
   View,
   Text,
-  FlatList
+  FlatList,
+  Alert
 } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
@@ -13,116 +14,18 @@ import { connect } from 'react-redux';
 import * as actions from '../actions.js';
 
 import theme from '../theme.js';
-//import notes from '../constants.js';
 
 import LoadingView from '../components/loading.js';
 import UtilityButton from '../components/utility-button.js';
 import NoteListItem from '../components/note-list-item.js';
 import uuidv4 from 'uuid/v4';
 
-let notesArray = [
-      {
-        id: '0000',
-        title: 'Note1',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0001',
-        title: 'Note2',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0002',
-        title: 'Note3',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0003',
-        title: 'Note4',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0004',
-        title: 'Note1',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0005',
-        title: 'Note2',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0006',
-        title: 'Note3',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0007',
-        title: 'Note4',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },{
-        id: '0008',
-        title: 'Note1',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0009',
-        title: 'Note2',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0010',
-        title: 'Note3',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0011',
-        title: 'Note4',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },{
-        id: '0012',
-        title: 'Note1',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0013',
-        title: 'Note2',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0014',
-        title: 'Note3',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      },
-      {
-        id: '0015',
-        title: 'Note4',
-        content: 'Testing 1 2 3 . . . ',
-        date: '01/02/2003'
-      }
-    ];
-
 class NoteList extends Component {
   componentDidMount() {
     this.props.navigation.setParams({
-      onMenuBtnPress: () => { alert("Hamburger pressed") },
-      onShareBtnPress: () => { alert("Share button pressed") },
-      onMoreBtnPress: () => { alert("More button pressed") }
+      onMenuBtnPress: () => { alert('Hamburger pressed') },
+      onShareBtnPress: () => { alert('Share button pressed') },
+      onMoreBtnPress: () => { alert('More button pressed') }
     });
   }
 
@@ -148,18 +51,30 @@ class NoteList extends Component {
     navigate('DetailScreen', { note: item });
   }
 
+  onFinaliseDelete(item) {
+    this.props.deleteNote(item.id);
+  }
+
+  onDeleteNote(item) {
+    Alert.alert(
+      'Delete Note',
+      'Are you sure you wish to delete this note?',
+      [
+        {text: 'Cancel', onPress: () => {}, style: 'cancel'},
+        {text: 'Delete', onPress: () => this.onFinaliseDelete(item)}
+      ],
+      { cancelable: false });
+  }
+
   renderItem(item) {
-    return <NoteListItem onPress={() => this.onViewNote(item)} item={item} />;
+    return <NoteListItem item={item} onPress={() => this.onViewNote(item)} onLongPress={() => this.onDeleteNote(item)} />;
   }
 
   render() {
-    console.log('Notes list: ', this.props.notes);
-    (this.props.notes === null) ? console.log('Notes list variable is null') :
-    console.log('Notes list variable is of the type: ', (typeof this.props.notes));
     const params = {
       noteList: {
         data: this.props.notes,
-        keyExtractor: (item) => {console.log("Note Title: ", item.title); return item.id},
+        keyExtractor: (item) => item.id,
         renderItem: ({item}) => this.renderItem(item)
       },
       actionButton: {
@@ -185,10 +100,12 @@ const mapStateToProps = (state) => {
   return { notes: state.notes };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {  };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteNote: (id) => dispatch(actions.deleteNote({id}))
+  };
+};
 
-const NoteListScreen = connect(mapStateToProps)(NoteList);
+const NoteListScreen = connect(mapStateToProps, mapDispatchToProps)(NoteList);
 
 export default NoteListScreen;
