@@ -44,7 +44,7 @@ const NoteListItem = (props) => {
               style={theme.styles.itemContent}>{props.item.content}</Text>
           </View>
           <View style={theme.styles.itemDateWrap}>
-            <Text style={theme.styles.itemDate}>Last Updated: {getCustomDateFormat(checkIfToday())}</Text>
+            <Text style={theme.styles.itemDate}>Last Updated: {getCustomDateFormat(checkIfToday(), props.item.dateUpdated)}</Text>
           </View>
         </View>
       </View>

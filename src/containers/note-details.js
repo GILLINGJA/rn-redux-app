@@ -15,10 +15,13 @@ import * as actions from '../actions.js';
 import theme from '../theme.js';
 
 import UtilityButton from '../components/utility-button.js';
+import { getCustomDateFormat } from '../constants.js';
 
 class NoteDetails extends Component {
   constructor(props) {
     super(props);
+
+    let titleFocus = false;
 
     this.state = {
       note: props.navigation.getParam('note')
@@ -27,6 +30,7 @@ class NoteDetails extends Component {
   }
 
   componentDidMount() {
+    console.log("Date created: ", this.state.note.dateCreated);
     this.props.navigation.setParams({
       pressBack: () => { this.props.navigation.goBack() },
       onUtilBtnPress: () => { alert("Utility button pressed") }
@@ -34,6 +38,8 @@ class NoteDetails extends Component {
   }
 
   newNote(id) {
+    this.titleFocus = true;
+
     let today = new Date();
     return {
           id: id,
@@ -47,7 +53,7 @@ class NoteDetails extends Component {
   onChangeField(text, field) {
     const note = Object.assign({}, this.state.note)
     note[field] = text;
-    note.dateUpdated
+    note.dateUpdated = new Date();
     this.setState({ note });
   }
 
@@ -99,6 +105,8 @@ class NoteDetails extends Component {
             <View style={theme.styles.titleContainer}>
               <TextInput style={theme.styles.title}
                 placeholder='Title'
+                autoFocus={this.titleFocus}
+                autoCapitalize='words'
                 underlineColorAndroid={theme.primaryColour}
                 onChangeText={text => this.onChangeField(text, 'title')}
                 value={this.state.note.title} />
@@ -119,6 +127,8 @@ class NoteDetails extends Component {
             <TextInput style={theme.styles.contentText}
             placeholder="Take some notes"
             multiline={true}
+            autoFocus={!this.titleFocus}
+            autoCapitalize='sentences'
             underlineColorAndroid='rgba(0,0,0,0)'
             onChangeText={text => this.onChangeField(text, 'content')}
             value={this.state.note.content} />
