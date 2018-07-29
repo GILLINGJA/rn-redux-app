@@ -7,22 +7,18 @@ import {
 } from 'react-native';
 
 import theme from '../theme.js';
-import NoteList from './note-list.js';
-import NoteDetails from './note-details.js';
+import NoteListScreen from './note-list.js';
+import NoteDetailScreen from './note-details.js';
 
 export default class RootComponent extends Component {
   constructor(props) {
     super(props);
   }
 
-  _onUtilBtnPress = () => {
-    alert("Utility button pressed");
-  }
-
   render() {
     const NavigationContainer = createStackNavigator({
-        ListScreen: { screen: NoteList },
-        DetailScreen: { screen: NoteDetails }
+        ListScreen: { screen: NoteListScreen },
+        DetailScreen: { screen: NoteDetailScreen }
       }, {
         initalRouteName: 'ListScreen',
         navigationOptions: {

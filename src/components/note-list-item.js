@@ -23,7 +23,7 @@ const NoteListItem = (props) => {
             <Text style={theme.styles.itemInfo}>{props.item.content}</Text>
           </View>
           <View>
-            <Text style={theme.styles.itemInfo}>Last Updated: {props.item.date}</Text>
+            <Text style={theme.styles.itemInfo}>Last Updated: {props.item.dateUpdated}</Text>
           </View>
         </View>
       </View>

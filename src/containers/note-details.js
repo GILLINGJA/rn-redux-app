@@ -9,46 +9,52 @@ import {
 } from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
+import { connect } from 'react-redux';
+import * as actions from '../actions.js';
+
 import theme from '../theme.js';
+import { getCustomDateFormat } from '../constants.js';
 
 import UtilityButton from '../components/utility-button.js';
 
-export default class NoteDetails extends Component {
+class NoteDetails extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      note: props.navigation.getParam('note', {
-        id: 'noluck',
-        title: 'FAIL',
-        content: 'Failed to load note through navigation params.',
-        date: 'Never'
-      }) || this.newNote(props.navigation.getParam('noteID', 'NO-ID'))
-    }
+      note: props.navigation.getParam('note')
+        || this.newNote(props.navigation.getParam('noteID', 'NO-ID'))
+    };
   }
 
   componentDidMount() {
     this.props.navigation.setParams({
       pressBack: () => { this.props.navigation.goBack() },
       onUtilBtnPress: () => { alert("Utility button pressed") }
-  });
+    });
   }
 
   newNote(id) {
-    this.setState({
-      note: {
-        id: id,
-        title: 'Hello',
-        content: 'World',
-        date: '14/07/2018'
-      }
-    });
+    let today = getCustomDateFormat();
+    // console.log('id: ', id);
+    console.log('Date created: ', today);
+    // console.log('New note');
+    return {
+          id: id,
+          title: '',
+          content: '',
+          dateCreated: today,
+          dateUpdated: today
+        };
   }
 
   onChangeField(text, field) {
     const note = Object.assign({}, this.state.note)
     note[field] = text;
+    note.dateUpdated
     this.setState({ note });
+
+    console.log('Note object: ', note);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -65,7 +71,22 @@ export default class NoteDetails extends Component {
       )};
   }
 
+  componentWillUnmount() {
+    const note = Object.assign({}, this.state.note);
+
+    if(note.title.length === 0 || note.content.length === 0) {
+      alert("Cannot save empty note");
+    } else {
+      console.log('Attempt to save following note: ', note);
+      this.props.saveNote(this.state.note);
+    }
+  }
+
   render() {
+    if(this.props.loading) {
+      return ( <LoadingView /> );
+    }
+
     return (
       <View style={theme.styles.fullContainer}>
         {/* EDITOR
@@ -74,7 +95,6 @@ export default class NoteDetails extends Component {
             - Metadata
               * Notebook
               * Reminder
-              * Tags
               * Information
           > Note Content
             - Text Field */}
@@ -112,3 +132,19 @@ export default class NoteDetails extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    note: state.notes.find(n => n.id === ownProps.navigation.state.params.id)
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveNote: (note) => dispatch(actions.saveNote(note))
+  };
+};
+
+const NoteDetailScreen = connect(mapStateToProps, mapDispatchToProps)(NoteDetails);
+
+export default NoteDetailScreen;

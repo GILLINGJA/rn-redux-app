@@ -39,7 +39,9 @@ export default {
       fontSize: 24
     },
 
-    /* Loading Styles */
+    /*
+     * Loading Styles
+     */
     loadingContainer: {
       backgroundColor: primaryColourLight,
       flex: 1,
@@ -53,17 +55,17 @@ export default {
     },
 
     /*
+     * Screen Container Styles
+     */
+     fullContainer: {
+       flex: 1,
+       alignSelf: 'stretch',
+       backgroundColor: textColourLight
+     },
+
+    /*
      * NoteList Styles
      */
-    fullContainer: {
-      height: '100%'
-    },
-
-    listContainer: {
-      flex: 1,
-      alignSelf: 'stretch'
-    },
-
     list: {
       flex: 1,
       borderWidth: 2,
@@ -71,9 +73,41 @@ export default {
     },
 
     /*
+     * Note List Item Styles
+     */
+    itemContainer: {
+      height: 80,
+      paddingLeft: 6,
+      paddingRight: 6,
+      justifyContent: 'space-between',
+      borderBottomWidth: 0.5,
+      borderColor: primaryColourLight
+    },
+
+    itemTitleContainer: {
+      paddingTop: 4
+    },
+
+    itemTitle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: textColourDark
+    },
+
+    itemInfoContainer: {
+      paddingBottom: 4,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
+
+    itemInfo: {
+      fontSize: 14
+    },
+
+    /*
      * NoteDetails Styles
      */
-    editorContainer: {
+     editorContainer: {
       flex: 1,
       padding: 2,
       alignSelf: 'stretch'
@@ -149,39 +183,6 @@ export default {
       textAlignVertical: 'top',
       fontSize: 16,
       color: textColourDark
-    },
-
-    /*
-     * Note List Item Styles
-     */
-    itemContainer: {
-      height: 80,
-      paddingLeft: 6,
-      paddingRight: 6,
-      justifyContent: 'space-between',
-      backgroundColor: '#f00',
-      borderBottomWidth: 0.5,
-      borderColor: primaryColourLight
-    },
-
-    itemTitleContainer: {
-      paddingTop: 4
-    },
-
-    itemTitle: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: textColourDark
-    },
-
-    itemInfoContainer: {
-      paddingBottom: 4,
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    },
-
-    itemInfo: {
-      fontSize: 14
     }
   }
 }

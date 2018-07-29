@@ -4,36 +4,120 @@ import {
   StyleSheet,
   View,
   Text,
-  FlatList,
-  TouchableHighlight
+  FlatList
 } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
+import { connect } from 'react-redux';
+import * as actions from '../actions.js';
+
 import theme from '../theme.js';
-<<<<<<< HEAD
-import testData from '../constants.js';
-=======
-import constants from '../constants.js';
->>>>>>> tmp
+//import notes from '../constants.js';
 
 import LoadingView from '../components/loading.js';
 import UtilityButton from '../components/utility-button.js';
 import NoteListItem from '../components/note-list-item.js';
+import uuidv4 from 'uuid/v4';
 
-export default class NoteList extends Component {
-  constructor(props) {
-    super(props);
+let notesArray = [
+      {
+        id: '0000',
+        title: 'Note1',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0001',
+        title: 'Note2',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0002',
+        title: 'Note3',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0003',
+        title: 'Note4',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0004',
+        title: 'Note1',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0005',
+        title: 'Note2',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0006',
+        title: 'Note3',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0007',
+        title: 'Note4',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },{
+        id: '0008',
+        title: 'Note1',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0009',
+        title: 'Note2',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0010',
+        title: 'Note3',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0011',
+        title: 'Note4',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },{
+        id: '0012',
+        title: 'Note1',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0013',
+        title: 'Note2',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0014',
+        title: 'Note3',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      },
+      {
+        id: '0015',
+        title: 'Note4',
+        content: 'Testing 1 2 3 . . . ',
+        date: '01/02/2003'
+      }
+    ];
 
-<<<<<<< HEAD
-    this.state = { notes: testData.notes };
-=======
-    this.state = {
-      notes: constants.notes
-    }
->>>>>>> tmp
-  }
-
+class NoteList extends Component {
   componentDidMount() {
     this.props.navigation.setParams({
       onMenuBtnPress: () => { alert("Hamburger pressed") },
@@ -56,12 +140,11 @@ export default class NoteList extends Component {
   }
 
   onAddNote(navigate) {
-    navigate('DetailScreen', { noteID: '4321' })
+    navigate('DetailScreen', { noteID: uuidv4() });
   }
 
   onViewNote(item) {
     const { navigate } = this.props.navigation;
-
     navigate('DetailScreen', { note: item });
   }
 
@@ -70,10 +153,13 @@ export default class NoteList extends Component {
   }
 
   render() {
+    console.log('Notes list: ', this.props.notes);
+    (this.props.notes === null) ? console.log('Notes list variable is null') :
+    console.log('Notes list variable is of the type: ', (typeof this.props.notes));
     const params = {
       noteList: {
-        data: this.state.notes,
-        keyExtractor: (item) => item.id,
+        data: this.props.notes,
+        keyExtractor: (item) => {console.log("Note Title: ", item.title); return item.id},
         renderItem: ({item}) => this.renderItem(item)
       },
       actionButton: {
@@ -88,11 +174,21 @@ export default class NoteList extends Component {
 
     return (
       <View style={theme.styles.fullContainer}>
-        <View style={theme.styles.listContainer}>
-          <FlatList {...params.noteList} />
-        </View>
+        <FlatList {...params.noteList} />
         {(Platform.OS === 'android') && <ActionButton {...params.actionButton} />}
       </View>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { notes: state.notes };
+};
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {  };
+// };
+
+const NoteListScreen = connect(mapStateToProps)(NoteList);
+
+export default NoteListScreen;
