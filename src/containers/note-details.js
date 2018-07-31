@@ -5,7 +5,8 @@ import {
   StyleSheet,
   TouchableHighlight,
   ScrollView,
-  TextInput
+  TextInput,
+  ToastAndroid
 } from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
@@ -74,8 +75,8 @@ class NoteDetails extends Component {
   componentWillUnmount() {
     const note = Object.assign({}, this.state.note);
 
-    if(note.content.length === 0) {
-      alert("Cannot save empty note");
+    if(note.content.length === 0 && note.title.length === 0) {
+      ToastAndroid.show("Cannot save empty note", ToastAndroid.SHORT);
     } else if(note.title.length === 0) {
       note.title = 'Untitled Note';
       this.props.saveNote(note);
