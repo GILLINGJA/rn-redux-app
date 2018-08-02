@@ -197,6 +197,64 @@ export default {
       textAlignVertical: 'top',
       fontSize: 16,
       color: textColourDark
-    }
+    },
+
+    /*
+     * Keybaord Toolbar Styles
+     */
+     toolbar: {
+       height: 50,
+       justifyContent: 'space-between',
+       backgroundColor: primaryColourDark
+     },
+
+     toolButton: {
+       flex: 1,
+       height: 50,
+       width: 50,
+       alignItems: 'center',
+       justifyContent: 'center',
+       backgroundColor: primaryColourDark
+     },
+
+     toolIcon: {
+       fontSize: 20,
+       color: textColourLight
+     },
+
+     toolEdge: {
+       position: 'absolute',
+       bottom: 0,
+       right: 0,
+       height: 0,
+       width: 40,
+       borderStyle: 'solid',
+       borderBottomWidth: 50,
+       borderBottomColor: primaryColourDark,
+       borderLeftWidth: 15,
+       borderLeftColor: 'transparent',
+       backgroundColor: 'transparent',
+       alignItems: 'flex-end',
+       justifyContent: 'center'
+     },
+
+     toolEdgeBorder: {
+       position: 'absolute',
+       bottom: 0,
+       right: 0,
+       height: 0,
+       width: 42,
+       borderStyle: 'solid',
+       borderBottomWidth: 50,
+       borderBottomColor: primaryColourLight,
+       borderLeftWidth: 15,
+       borderLeftColor: 'transparent',
+       backgroundColor: 'transparent'
+     },
+
+     toolEdgeIcon: {
+       fontSize: 20,
+       color: primaryColourLight
+     }
   }
 }

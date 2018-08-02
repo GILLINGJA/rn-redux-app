@@ -17,7 +17,7 @@ import theme from '../theme.js';
 
 import LoadingView from '../components/loading.js';
 import UtilityButton from '../components/utility-button.js';
-import NoteListItem from '../components/note-list-item.js';
+import NoteListItem from './note-list-item.js';
 import uuidv4 from 'uuid/v4';
 
 class NoteList extends Component {
