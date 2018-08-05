@@ -1,3 +1,5 @@
+import { StyleSheet } from 'react-native';
+
 /**
  COLOUR theme for Lecture Notes App
  */
@@ -5,15 +7,19 @@ const primaryColour = '#966FD6';
 const primaryColourDark = '#6149A0';
 const primaryColourLight = '#B3B7EE';
 const textColourLight = '#FFFFFF';
+const textColourMid = '#777777';
 const textColourDark = '#666666';
+const textColourDarkest = '#333333';
 
 export default {
   primaryColour,
   primaryColourDark,
   primaryColourLight,
   textColourLight,
+  textColourMid,
   textColourDark,
-  styles: {
+  textColourDarkest,
+  styles: StyleSheet.create({
     /*
      * Utility Bar Styles
      */
@@ -32,6 +38,16 @@ export default {
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: primaryColour
+    },
+
+    utilButtonHighlight: {
+      width: 40,
+      height: 40,
+      marginLeft: 2,
+      marginRight: 2,
+      borderRadius: 20,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
 
     utilIcon: {
@@ -204,20 +220,42 @@ export default {
      */
      toolbar: {
        height: 50,
+       paddingLeft: 1,
+       paddingRight: 1,
        justifyContent: 'space-between',
-       backgroundColor: primaryColourDark
+       backgroundColor: textColourDark
      },
 
      toolButton: {
-       flex: 1,
-       height: 50,
-       width: 50,
+       height: 45,
+       width: 45,
        alignItems: 'center',
        justifyContent: 'center',
-       backgroundColor: primaryColourDark
+       backgroundColor: 'transparent'
      },
 
-     toolIcon: {
+     toolButtonOn: {
+       height: 45,
+       width: 45,
+       margin: 2,
+       borderRadius: 5,
+       backgroundColor: textColourDarkest
+     },
+
+     toolButtonOff: {
+       height: 45,
+       width: 45,
+       margin: 2,
+       borderRadius: 5,
+       backgroundColor: textColourDark
+     },
+
+     toolIconOn: {
+       fontSize: 20,
+       color: primaryColourLight
+     },
+
+     toolIconOff: {
        fontSize: 20,
        color: textColourLight
      },
@@ -226,35 +264,43 @@ export default {
        position: 'absolute',
        bottom: 0,
        right: 0,
-       height: 0,
-       width: 40,
-       borderStyle: 'solid',
-       borderBottomWidth: 50,
-       borderBottomColor: primaryColourDark,
-       borderLeftWidth: 15,
-       borderLeftColor: 'transparent',
-       backgroundColor: 'transparent',
-       alignItems: 'flex-end',
+       height: 50,
+       width: 20,
+       backgroundColor: textColourDark,
+       alignItems: 'flex-start',
        justifyContent: 'center'
      },
 
-     toolEdgeBorder: {
+     toolEdgeTri: {
        position: 'absolute',
        bottom: 0,
-       right: 0,
+       right: 20,
        height: 0,
-       width: 42,
+       width: 20,
+       borderStyle: 'solid',
+       borderBottomWidth: 50,
+       borderBottomColor: textColourDark,
+       borderLeftWidth: 15,
+       borderLeftColor: 'transparent',
+       backgroundColor: 'transparent'
+     },
+
+     toolEdgeTriBorder: {
+       position: 'absolute',
+       bottom: 0,
+       right: 22,
+       height: 0,
+       width: 20,
        borderStyle: 'solid',
        borderBottomWidth: 50,
        borderBottomColor: primaryColourLight,
        borderLeftWidth: 15,
-       borderLeftColor: 'transparent',
-       backgroundColor: 'transparent'
+       borderLeftColor: 'transparent'
      },
 
      toolEdgeIcon: {
        fontSize: 20,
        color: primaryColourLight
      }
-  }
+  })
 }

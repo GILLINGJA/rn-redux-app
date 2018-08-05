@@ -14,7 +14,8 @@ const UtilityButton = (props) => {
   return (
     <TouchableHighlight
       onPress={(event) => {props.onPress(event)}}
-      underlayColor={theme.textColourLight}>
+      underlayColor={theme.textColourLight}
+      style={theme.styles.utilButtonHighlight}>
       <View style={theme.styles.utilButton}>
         <FontAwesome style={theme.styles.utilIcon}>{props.children}</FontAwesome>
       </View>

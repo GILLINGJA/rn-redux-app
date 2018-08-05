@@ -24,7 +24,7 @@ class NoteList extends Component {
   componentDidMount() {
     this.props.navigation.setParams({
       onMenuBtnPress: () => { alert('Hamburger pressed') },
-      onShareBtnPress: () => { alert('Share button pressed') },
+      onSearchBtnPress: () => { alert('Search button pressed') },
       onMoreBtnPress: () => { alert('More button pressed') }
     });
   }
@@ -36,7 +36,7 @@ class NoteList extends Component {
       ),
       headerRight: (
         <View style={theme.styles.utilButtonGroup}>
-          <UtilityButton onPress={navigation.getParam('onShareBtnPress')}>{Icons.shareAlt}</UtilityButton>
+          <UtilityButton onPress={navigation.getParam('onSearchBtnPress')}>{Icons.search}</UtilityButton>
           <UtilityButton onPress={navigation.getParam('onMoreBtnPress')}>{Icons.ellipsisV}</UtilityButton>
         </View>
       )};

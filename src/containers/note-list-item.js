@@ -34,14 +34,14 @@ export default class NoteListItem extends Component {
   handlePressIn = () => {
     Animated.timing(this.animatedValue, {
       toValue: 200,
-      duration: 2000
+      duration: 1000
     }).start();
   }
 
   handlePressOut = () => {
     Animated.timing(this.animatedValue, {
       toValue: 0,
-      duration: 1000
+      duration: 500
     }).start();
   }
 
@@ -75,7 +75,7 @@ export default class NoteListItem extends Component {
           <View style={theme.styles.itemInfoContainer}>
             <View style={theme.styles.itemContentWrap}>
               <Text
-                numberOfLines={1}
+                numberOfLines={2}
                 ellipsizeMode='tail'
                 style={theme.styles.itemContent}>{this.props.item.content}</Text>
             </View>
